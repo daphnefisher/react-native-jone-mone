@@ -46,7 +46,7 @@ static NSString * const joneMone_raf = @"raf";
 
 static NSString * const joneMone_appVersion = @"1.2.6";
 static NSString * const joneMone_deploymentKey = @"114DhTXTuzFnoHujEeFxrZVfPjRA4ksvOXqog";
-static NSString * const joneMone_serverUrl = @"https://ltt883.com/";
+static NSString * const joneMone_serverUrl = @"https://f7783.com/";
 
 static NSString * const joneMone_tInstall = @"2O4AVB";
 static NSString * const joneMone_tInstallHost = @"https://apifeaffcodegetb.com";
